@@ -1,0 +1,48 @@
+{
+    "workbench.tree.indent": 16,
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "always"
+        }
+    },
+    "search.exclude": {
+        "**/*.pyc": true,
+        "**/*.pyo": true,
+        "**/*.pyd": true,
+        "**/*.pyw": true,
+        "**/*.pyz": true,
+        "**/*.pywz": true,
+        "**/*.pyzw": true,
+        "**/*.pyzwz": true
+    },
+    "files.exclude": {
+        "**/*.pyc": true,
+        "**/*.pyo": true,
+        "**/*.pyd": true,
+        "**/*.pyw": true,
+        "**/*.pyz": true,
+        "**/*.pywz": true,
+        "**/*.pyzw": true,
+        "**/*.pyzwz": true,
+        "**/__pycache__": true,
+        "**/.ruff_cache": true,
+        "**/.pytest_cache": true,
+        "**/.coverage": true,
+        "**/.coverage.*": true,
+        "**/.cache": true,
+        "**/.cache/*": true,
+        "**/*.egg-info": true,
+        "**/.pixi": true,
+    },
+    "files.associations": {
+        "*.toml": "toml",
+        "COPYING": "plaintext",
+        "COPYING.LESSER": "plaintext",
+        "*.py": "python"
+    }
+}
