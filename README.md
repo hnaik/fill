@@ -34,8 +34,8 @@
 - **Execution Ablation:** reward = IS vs IS + inventory penalty. Sensitivity to volatility and cost.  
 - **Allocation Ablation:** reward = return − λ·vol; vs a Sharpe-like proxy; add transaction costs.
 
-## Results (to fill)
-- Learning curves. IS distributions. Risk–return scatter. Multi-seed CIs.
+## Results
+📊 Example analyses in [`notebooks/`](notebooks) visualize learning curves, risk metrics, and baselines.
 
 ## Limits and Next Steps
 - Simulated environments are simplified.  
