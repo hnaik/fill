@@ -17,37 +17,17 @@
 # with this program. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
 # ==============================================================================
 
-from argparse import ArgumentParser
-from pathlib import Path
-
-import tomllib
-from stable_baselines3 import PPO
-
-from envs.exec_env import ExecutionEnv
-from eval.metrics import evaluate_exec
+import pandas as pd
+import pandas_datareader.data as web
 
 
-def main(cfg):
-    env = ExecutionEnv(cfg['env'])
-    model = PPO(
-        'MlpPolicy',
-        env,
-        **{k: v for k, v in cfg['agent'].items() if k != 'policy_kwargs'},
-        policy_kwargs=cfg['agent'].get('policy_kwargs', {}),
-        verbose=0,
-    )
-    model.learn(total_timesteps=cfg['train']['timesteps'])
-    stats = evaluate_exec(model, env, n_episodes=cfg['eval']['n_episodes'])
-
-    model_dir = Path(cfg.get('models_dir', 'models'))
-    model_path = model_dir / 'exec_ppo_final.zip'
-    model.save(model_path)
-    print(stats)
-
-
-if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument('--config', type=Path, required=True)
-    args = parser.parse_args()
-    cfg = tomllib.load(args.config.open('rb'))
-    main(cfg)
+def load_prices_stooq(tickers, start, end):
+    # Stooq delivers daily data and is light for demos
+    frames = []
+    for t in tickers:
+        df = web.DataReader(t, 'stooq', start=start, end=end)[
+            ['Close']
+        ].rename(columns={'Close': t})
+        frames.append(df)
+    out = pd.concat(frames, axis=1).sort_index().dropna()
+    return out

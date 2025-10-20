@@ -32,6 +32,8 @@ matplotlib = "*"
 stable-baselines3 = "*"
 yfinance = "*"
 pyyaml = "*"
+pyarrow = ">=21.0.0,<22"
+fastparquet = ">=2024.11.0,<2025"
 
 [tool.pixi.tasks]
 
@@ -50,3 +52,17 @@ cmd = [
     "--config=experiments/alloc_risk_reward.toml"
 ]
 env = { PYTHONPATH = ".:./src" }
+
+[tool.pixi.tasks.launch-jupyter]
+cmd = [
+    "python",
+    "-mjupyter",
+    "lab",
+    "--no-browser",
+    "--ip=0.0.0.0",
+    "--autoreload",
+    "--IdentityProvider.token=''",
+    "--ServerApp.token=''",
+    "--ServerApp.password=''"
+]
+env = { PYTHONPATH = "./src", MODELS_DIR = "./models", CONFIGS_DIR = "./experiments" }

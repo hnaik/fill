@@ -28,7 +28,7 @@ from eval.metrics import evaluate_alloc
 from utils.data import load_prices_yf
 
 
-def main(cfg):
+def process(cfg):
     prices = load_prices_yf(cfg['data'])
     print(prices)
 
@@ -50,7 +50,19 @@ def main(cfg):
     )
     model.learn(total_timesteps=cfg['train']['timesteps'])
     stats = evaluate_alloc(model, env, n_episodes=cfg['eval']['n_episodes'])
-    print(stats)
+
+    model_dir = Path(cfg.get('models_dir', 'models'))
+    model_path = model_dir / 'alloc_sac_final.zip'
+    model.save(model_path)
+    return stats
+
+
+def main(cfg):
+    try:
+        stats = process(cfg)
+        print(stats)
+    except RuntimeError:
+        return 0
 
 
 if __name__ == '__main__':

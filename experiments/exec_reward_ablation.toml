@@ -1,4 +1,5 @@
 seed = 123
+output_dir = "./models"
 
 [env]
 steps = 50
@@ -30,3 +31,5 @@ timesteps = 200_000
 [eval]
 n_episodes = 50
 baselines = ["TWAP", "VWAP", "AC"]
+
+

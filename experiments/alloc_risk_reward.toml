@@ -1,4 +1,5 @@
 seed = 123
+output_dir = "./models"
 
 [data]
 tickers = ["SPY", "QQQ", "TLT", "GLD"]
