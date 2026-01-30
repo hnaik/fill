@@ -13,7 +13,7 @@ quote-style = "single"
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
-platforms = ["osx-64"]
+platforms = ["linux-64", "osx-64"]
 
 [tool.pixi.pypi-dependencies]
 rl-finlab = { path = ".", editable = true }
@@ -43,7 +43,7 @@ cmd = [
     "-mapps.sb3_ppo_exec",
     "--config=experiments/exec_reward_ablation.toml"
 ]
-env = { PYTHONPATH = ".:./src" }
+env = { PYTHONPATH = ".:./lab/rl_execution/src" }
 
 [tool.pixi.tasks.train_alloc]
 cmd = [
@@ -51,7 +51,7 @@ cmd = [
     "-mapps.sb3_sac_alloc",
     "--config=experiments/alloc_risk_reward.toml"
 ]
-env = { PYTHONPATH = ".:./src" }
+env = { PYTHONPATH = ".:./lab/rl_execution/src" }
 
 [tool.pixi.tasks.launch-jupyter]
 cmd = [
