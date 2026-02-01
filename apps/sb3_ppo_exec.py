@@ -23,8 +23,8 @@ from pathlib import Path
 import tomllib
 from stable_baselines3 import PPO
 
-from envs.exec_env import ExecutionEnv
-from eval.metrics import evaluate_exec
+from rl.envs.exec_env import ExecutionEnv
+from rl.eval.metrics import evaluate_exec
 
 
 def main(cfg):

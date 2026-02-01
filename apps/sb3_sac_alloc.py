@@ -19,12 +19,13 @@
 
 from argparse import ArgumentParser
 from pathlib import Path
+
 import tomllib
+from stable_baselines3 import PPO, SAC
 
-from stable_baselines3 import SAC, PPO
+from rl.envs.alloc_env import AllocationEnv
+from rl.eval.metrics import evaluate_alloc
 
-from envs.alloc_env import AllocationEnv
-from eval.metrics import evaluate_alloc
 from utils.data import load_prices_yf
 
 
