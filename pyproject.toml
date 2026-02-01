@@ -1,6 +1,6 @@
 [project]
-name = "rl-finlab"
-description = "Reinforcement Learning Finance Laboratory"
+name = "finlab"
+description = "Finance Laboratory"
 version = "0.1.0"
 
 [tool.ruff]
@@ -14,9 +14,6 @@ quote-style = "single"
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["linux-64", "osx-64"]
-
-[tool.pixi.pypi-dependencies]
-rl-finlab = { path = ".", editable = true }
 
 [tool.pixi.dependencies]
 python = "==3.11"
