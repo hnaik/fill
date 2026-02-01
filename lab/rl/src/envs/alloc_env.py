@@ -49,7 +49,7 @@ class AllocationEnv(gym.Env):
         self.observation_space = spaces.Box(
             low=-np.inf,
             high=np.inf,
-            shape=(self.window + 1, self.N),
+            shape=(self.window, self.N),
             dtype=np.float32,
         )
         self.reset()
@@ -61,7 +61,9 @@ class AllocationEnv(gym.Env):
         return self._observe(), {}
 
     def _observe(self):
-        return self.returns[self.t - self.window : self.t]
+        end = min(self.t, self.T)
+        start = end - self.window
+        return self.returns[start:end].astype(np.float32)
 
     def _reward(self, seg_ret, ret_seg):
         if self.reward_cfg['type'] == 'ret_minus_lambda_vol':

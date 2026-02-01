@@ -38,7 +38,7 @@ fastparquet = ">=2025.12.0,<2026"
 cmd = [
     "python",
     "-mlab.rl.apps.sb3_ppo_exec",
-    "--config=lab/rl/experiments/exec_reward_ablation.toml"
+    "--config=lab/rl/experiments/exec_reward_ablation.toml",
 ]
 env = { PYTHONPATH = ".:./lab/rl/src" }
 
@@ -46,20 +46,18 @@ env = { PYTHONPATH = ".:./lab/rl/src" }
 cmd = [
     "python",
     "-mlab.rl.apps.sb3_sac_alloc",
-    "--config=lab/rl/experiments/alloc_risk_reward.toml"
+    "--config=lab/rl/experiments/alloc_risk_reward.toml",
 ]
 env = { PYTHONPATH = ".:./lab/rl/src" }
 
 [tool.pixi.tasks.launch-jupyter]
 cmd = [
     "python",
-    "-mjupyter",
-    "lab",
+    "-mjupyterlab",
     "--no-browser",
     "--ip=0.0.0.0",
     "--autoreload",
     "--IdentityProvider.token=''",
     "--ServerApp.token=''",
-    "--ServerApp.password=''"
+    "--ServerApp.password=''",
 ]
-env = { PYTHONPATH = "./lab/rl/src", MODELS_DIR = "./models", CONFIGS_DIR = "./experiments" }

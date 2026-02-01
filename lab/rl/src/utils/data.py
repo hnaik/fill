@@ -19,18 +19,17 @@
 
 import os
 import time
-import hashlib
+import hashlib 
 
 import pandas as pd
 import yfinance as yf
-
-
+ 
+ 
 def _cache_path(cfg):
     key = f'{",".join(cfg["tickers"])}|{cfg["start"]}|{cfg["end"]}'
     h = hashlib.md5(key.encode()).hexdigest()
     os.makedirs('data/cache', exist_ok=True)
     return f'data/cache/prices_{h}.parquet'
-
 
 def load_prices_yf(cfg, max_retries=6):
     cache = _cache_path(cfg)
@@ -50,10 +49,10 @@ def load_prices_yf(cfg, max_retries=6):
             )
             # Normalize to Adj Close-like wide frame
             if isinstance(df.columns, pd.MultiIndex):
-                df = df.xs('Adj Close', axis=1, level=1, drop_level=False)
+                df = df.xs('Close', axis=1, level=1, drop_level=False)
                 df.columns = [c[0] for c in df.columns]
-            elif 'Adj Close' in df.columns:
-                df = df[['Adj Close']]
+            elif 'Close' in df.columns:
+                df = df[['Close']]
             df = df.dropna()
             df.to_parquet(cache)
             return df.values
