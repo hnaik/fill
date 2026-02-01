@@ -211,3 +211,5 @@ __marimo__/
 
 data/cache/
 models/*.zip
+lab/rl/notebooks/data/cache/*
+lab/rl/models/*.zip
