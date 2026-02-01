@@ -66,10 +66,3 @@ cmd = [
     "--ServerApp.password=''"
 ]
 env = { PYTHONPATH = "./src", MODELS_DIR = "./models", CONFIGS_DIR = "./experiments" }
-
-[tool.pylint]
-
-[tool.pylint."messages control"]
-disable = [
-    "missing-imports"
-]
