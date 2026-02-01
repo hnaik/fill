@@ -1,7 +1,7 @@
 # ==============================================================================
-# rl-finlab: Reinforcement Learning Finance Experimentation
+# fill: FInance Laboratory for Learning
 # ==============================================================================
-# Copyright (C) 2025  Harish Naik
+# Copyright (C) 2025  Harish Naik <harishnaik@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,27 +17,19 @@
 # with this program. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
 # ==============================================================================
 
-from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
-import torch.nn as nn
+import numpy as np
 
 
-class RiskAwareExtractor(BaseFeaturesExtractor):
-    def __init__(self, observation_space, features_dim=128):
-        super().__init__(observation_space, features_dim)
-        in_dim = (
-            observation_space.shape[0]
-            if len(observation_space.shape) == 1
-            else observation_space.shape[0] * observation_space.shape[1]
-        )
-        self.net = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(in_dim, 256),
-            nn.ReLU(),
-            nn.Linear(256, 256),
-            nn.ReLU(),
-            nn.Linear(256, features_dim),
-            nn.ReLU(),
-        )
+def twap_schedule(T, q0):
+    """Time-weighted average price schedule."""
 
-    def forward(self, x):
-        return self.net(x)
+    # equal slices each step
+    return np.full(T, q0 / T)
+
+
+def vwap_schedule(vol_profile, q0):
+    """Volume-weighted average price schedule."""
+
+    vol = np.array(vol_profile, dtype=np.float32)
+    vol /= vol.sum()
+    return q0 * vol

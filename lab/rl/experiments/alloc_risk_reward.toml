@@ -1,7 +1,7 @@
 # ==============================================================================
-# rl-finlab: Reinforcement Learning Finance Experimentation
+# fill: FInance Laboratory for Learning
 # ==============================================================================
-# Copyright (C) 2025  Harish Naik
+# Copyright (C) 2025  Harish Naik <harishnaik@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,34 +17,35 @@
 # with this program. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
 # ==============================================================================
 
-import numpy as np
+seed = 123
+output_dir = "./lab/rl/models"
 
+[data]
+tickers = ["SPY", "QQQ", "TLT", "GLD"]
+start = "2015-01-01"
+end = "2024-12-31"
+cost_bps = 2.0
 
-def equal_weight(N):
-    """Equal weight signal."""
+[env]
+window = 60
+rebalance_every = 5
 
-    return np.ones(N) / N
+[agent]
+algo = "SAC"
+learning_rate = 3.0e-4
+gamma = 0.995
+tau = 0.02
 
+[agent.policy_kwargs]
+net_arch = [256, 256]
 
-def buy_and_hold(w0=None, N=None):
-    """Buy and hold signal."""
+[reward]
+type = "ret_minus_lambda_vol" # ["ret_minus_lambda_vol", "sharpe_proxy"]
+lambda_vol = 5.0e-2
 
-    return equal_weight(N) if w0 is None else w0
+[train]
+timesteps = 200_000
 
-
-def momentum_signal(returns, lookback=60):
-    """Momentum signal."""
-
-    mu = returns[-lookback:].mean(axis=0)
-    w = np.maximum(mu, 0.0)
-    s = w.sum()
-    return w / s if s > 1e-8 else equal_weight(returns.shape[1])
-
-
-def reverse_signal(returns, lookback=5):
-    """Reverse momentum signal."""
-
-    mu = returns[-lookback:].mean(axis=0)
-    w = np.maximum(-mu, 0.0)
-    s = w.sum()
-    return w / s if s > 1e-8 else equal_weight(returns.shape[1])
+[eval]
+n_episodes = 20
+baselines = ["EW", "BH", "MOM", "REV"]

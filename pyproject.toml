@@ -1,6 +1,6 @@
 [project]
-name = "finlab"
-description = "Finance Laboratory"
+name = "fill"
+description = "FInance Laboratory for Learning"
 version = "0.1.0"
 
 [tool.ruff]
@@ -37,18 +37,18 @@ fastparquet = ">=2025.12.0,<2026"
 [tool.pixi.tasks.train_exec]
 cmd = [
     "python",
-    "-mapps.sb3_ppo_exec",
-    "--config=experiments/exec_reward_ablation.toml"
+    "-mlab.rl.apps.sb3_ppo_exec",
+    "--config=lab/rl/experiments/exec_reward_ablation.toml"
 ]
-env = { PYTHONPATH = ".:./lab/rl_execution/src" }
+env = { PYTHONPATH = ".:./lab/rl/src" }
 
 [tool.pixi.tasks.train_alloc]
 cmd = [
     "python",
-    "-mapps.sb3_sac_alloc",
-    "--config=experiments/alloc_risk_reward.toml"
+    "-mlab.rl.apps.sb3_sac_alloc",
+    "--config=lab/rl/experiments/alloc_risk_reward.toml"
 ]
-env = { PYTHONPATH = ".:./lab/rl_execution/src" }
+env = { PYTHONPATH = ".:./lab/rl/src" }
 
 [tool.pixi.tasks.launch-jupyter]
 cmd = [
@@ -62,4 +62,4 @@ cmd = [
     "--ServerApp.token=''",
     "--ServerApp.password=''"
 ]
-env = { PYTHONPATH = "./src", MODELS_DIR = "./models", CONFIGS_DIR = "./experiments" }
+env = { PYTHONPATH = "./lab/rl/src", MODELS_DIR = "./models", CONFIGS_DIR = "./experiments" }
