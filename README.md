@@ -14,3 +14,6 @@ pixi run train_alloc
 - [Python](https://www.python.org/)
 - [pixi](https://pixi.sh/latest/)
 
+## Experiments
+### RL: `lab/rl`
+
